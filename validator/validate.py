@@ -31,7 +31,7 @@ def _validate_issue(
         print("⚠️ Issue is closed -- skipping")
         return ValidationReport()
 
-    if LABEL_INITIATIVE not in issue.labels:
+    if LABEL_INITIATIVE not in issue_labels:
         print(f"⚠️ Issue missing label '{LABEL_INITIATIVE}' -- skipping")
         return ValidationReport()
 
