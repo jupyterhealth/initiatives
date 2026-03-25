@@ -15,16 +15,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Install the latest version of uv
-      uses: astral-sh/setup-uv@v7
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v7
 
-    - name: Install dependencies
-      run: |
-        uv sync
+      - name: Install dependencies
+        run: |
+          uv sync
 
-    - name: Run mypy
-      run: |
-        uv run mypy
+      - name: Run mypy
+        run: |
+          uv run mypy
