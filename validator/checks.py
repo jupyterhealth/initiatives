@@ -33,8 +33,11 @@ class ValidationCheck(ABC):
 
 class MissingHeadingsCheck(ValidationCheck):
     def check(self, segments: SegmentsMap, report: ValidationReport) -> None:
-        required_headings = {req["heading"] for req in self.heading_requirements}
-        missing_headings = required_headings - set(segments.keys())
+        missing_headings = [
+            req["heading"]
+            for req in self.heading_requireemnts
+            if req["heading"] not in segments.keys()
+        ]
 
         for heading in missing_headings:
             report.add_issue(
@@ -48,7 +51,10 @@ class MissingHeadingsCheck(ValidationCheck):
 
 class UnexpectedHeadingsCheck(ValidationCheck):
     def check(self, segments: SegmentsMap, report: ValidationReport) -> None:
-        unexpected_headings = set(segments.keys()) - set(ALLOWED_HEADINGS)
+        unexpected_headings = [
+            heading for heading in segments.keys() if heading not in ALLOWED_HEADINGS
+        ]
+
         for heading in unexpected_headings:
             report.add_issue(
                 ValidationIssue(
