@@ -17,9 +17,8 @@ This validator is inspired by / reused from the <https://github.com/2i2c-org/ini
 * Refactors
     * Extract repo owner/name constants
     * Remove support for full issue URL -- we only care about this repo.
-    * Validators return `None` instead of `True` when no errors found
     * Replace `for`/`else` pattern (I see this very rarely in the wild)
-    * Refactor to avoid early failure and report generation of all issues
+    * Refactor to avoid early failure and generate report of all issues
 * User-specific needs
     * Replace `2i2c` refs with `geojupyter`
     * Required header adjustments
