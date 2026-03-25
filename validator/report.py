@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 
 from validator.constants import LABEL_PREFIX
 
@@ -33,13 +34,42 @@ class ValidationReport:
     def error_labels(self) -> set[str]:
         return {issue.label for issue in self.issues}
 
+    @property
+    def _summary_message(self) -> str:
+        if self.is_failure:
+            return f"😭 Validation failed with {len(self.issues)} issues."
+        else:
+            return "😁 Validation successful!"
+
+    @property
+    def _errors_message(self) -> str:
+        if not self.is_failure:
+            return ""
+
+        return "\n".join([f"- {issue.rich_message}" for issue in self.issues])
+
+    @property
+    def github_issue_message(self) -> str:
+        timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+        lines: list[str] = []
+
+        lines.append(f"{timestamp} - {self._summary_message}")
+        if self.is_failure:
+            lines.append("<details>")
+            lines.append("<summary>Errors</summary>")
+            lines.append("")
+            lines.append(self._errors_message)
+            lines.append("")
+            lines.append("</details>")
+
+        return "\n".join(lines)
+
     def __str__(self) -> str:
         lines: list[str] = []
+
+        lines.append(self._summary_message)
         if self.is_failure:
-            lines.append(f"😭 Validation failed with {len(self.issues)} issues.")
             lines.append("")
-            lines.extend([f"- {issue.rich_message}" for issue in self.issues])
-        else:
-            lines.append("😁 Validation successful!")
+            lines.append(self._errors_message)
 
         return "\n".join(lines)
