@@ -27,11 +27,11 @@ def _validate_issue(
     issue_labels = [label.name for label in issue.labels]
 
     if issue.state != "open":
-        print("⚠️  Issue is closed -- skipping")
+        print("⚠️ Issue is closed -- skipping")
         return ValidationReport()
 
     if LABEL_INITIATIVE not in issue.labels:
-        print(f"⚠️  Issue missing label '{LABEL_INITIATIVE}' -- skipping")
+        print(f"⚠️ Issue missing label '{LABEL_INITIATIVE}' -- skipping")
         return ValidationReport()
 
     validator = Validator(
