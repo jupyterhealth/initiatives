@@ -150,8 +150,8 @@ def _validate(markdown: str) -> None | str:
 
     segments = _parse_segments(markdown)
 
-    # Make sure that all the level headings are present
-    missing_headers = set(h["heading"] for h in REQUIRED_HEADINGS["Level 1"]) - set(
+    # Make sure that all the required level 1 headings are present
+    missing_headers = set(h["heading"] for h in REQUIRED_HEADINGS[1]) - set(
         segments.keys()
     )
     if missing_headers:
