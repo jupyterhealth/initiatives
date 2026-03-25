@@ -25,6 +25,7 @@ def _validate_issue(
 ) -> ValidationReport:
     issue = github.get_repo(f"{REPO_OWNER}/{REPO_NAME}").get_issue(issue_id)
     issue_labels = [label.name for label in issue.labels]
+    print(f"ℹ️ Found labels: {issue_labels}")
 
     if issue.state != "open":
         print("⚠️ Issue is closed -- skipping")
