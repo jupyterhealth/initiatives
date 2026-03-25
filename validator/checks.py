@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 import nltk
 
-from validator.headings import ALLOWED_HEADINGS, HEADING_REQUIREMENTS
+from validator.headings import ALLOWED_HEADINGS, FREEFORM_HEADINGS, HEADING_REQUIREMENTS
 from validator.markdown import _parse_segments, _render_tokens_as_md
 from validator.report import ValidationIssue, ValidationReport
 from validator.types import SegmentsMap
@@ -63,6 +63,38 @@ class UnexpectedHeadingsCheck(ValidationCheck):
                     heading=heading,
                 )
             )
+
+
+class DisorderedHeaderCheck(ValidationCheck):
+    """Validate that headings appear in the expected order."""
+
+    def check(self, segments: SegmentsMap, report: ValidationReport) -> None:
+        expected_order = [req["heading"] for req in self.heading_requirements]
+        expected_order.extend(FREEFORM_HEADINGS)
+        expected_order_index_map = {
+            heading: index for index, heading in enumerate(expected_order)
+        }
+
+        # Only the actual headings that are present in the order object -- another check
+        # will catch unexpected headings.
+        actual_headings = [
+            heading for heading in list(segments.keys()) if heading in expected_order
+        ]
+
+        for current_heading, next_heading in zip(actual_headings, actual_headings[1:]):
+            current_index = expected_order_index_map[current_heading]
+            next_index = expected_order_index_map[next_heading]
+
+            if current_index > next_index:
+                report.add_issue(
+                    ValidationIssue(
+                        code="disordered-header",
+                        message=(
+                            f"Heading '{next_heading}' should appear before"
+                            f" '{current_heading}'"
+                        ),
+                    )
+                )
 
 
 class WordCountCheck(ValidationCheck):
