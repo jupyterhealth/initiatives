@@ -199,7 +199,7 @@ def _validate_issue(*, github: Github, issue_id: int) -> None:
         print(f"ℹ️  Adding label {label} to {issue.html_url}")
 
 
-def cli():
+def cli() -> None:
     # Download Natural Language Toolkit data for tokenization if needed
     nltk.download("punkt_tab", quiet=True)
 
