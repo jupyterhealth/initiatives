@@ -26,7 +26,8 @@ jobs:
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       run: |
-        uv run python -m \
-        validator \
-        ${{ github.event.issue.number }} \
-        --post-report-as-comment
+        uv run --no-sync \
+          python -m \
+            validator \
+              ${{ github.event.issue.number }} \
+              --post-report-as-comment
