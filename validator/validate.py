@@ -4,9 +4,8 @@ from argparse import ArgumentParser
 import os
 import nltk
 from typing import Iterable
-from mistletoe import Document
 from mistletoe.markdown_renderer import MarkdownRenderer
-from mistletoe.block_token import Heading
+from mistletoe.block_token import Heading, Document
 from mistletoe.token import Token
 from github import Github, Auth
 from typing import NotRequired, TypedDict
