@@ -36,10 +36,10 @@ class ValidationReport:
     def __str__(self) -> str:
         lines: list[str] = []
         if self.is_failure:
-            lines.append(f"❌ Validation failed with {len(self.issues)} issues.")
+            lines.append(f"😭 Validation failed with {len(self.issues)} issues.")
             lines.append("")
             lines.extend([f"- {issue.rich_message}" for issue in self.issues])
         else:
-            lines.append("✔️  Validation successful!")
+            lines.append("😁 Validation successful!")
 
         return "\n".join(lines)
