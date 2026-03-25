@@ -8,60 +8,15 @@ from mistletoe.markdown_renderer import MarkdownRenderer
 from mistletoe.block_token import Heading, Document
 from mistletoe.token import Token
 from github import Github, Auth
-from typing import NotRequired, TypedDict
 
-REPO_OWNER = "geojupyter"
-REPO_NAME = "initiatives"
-
-
-class HeadingRequirement(TypedDict):
-    heading: str
-    min_words: NotRequired[int]
-    max_words: NotRequired[int]
-
-
-REQUIRED_HEADINGS: dict[int, list[HeadingRequirement]] = {
-    1: [  # Header level 1
-        {
-            "heading": "Problem statement",
-            "min_words": 10,
-        },
-        {
-            "heading": "Who is impacted by this problem?",
-            "min_words": 1,
-        },
-        {
-            "heading": "Proposed solution",
-            "min_words": 10,
-            "max_words": 500,
-        },
-        {
-            "heading": "Proposed implementation",
-            "min_words": 10,
-            "max_words": 500,
-        },
-        {
-            "heading": "How will this fit in the ecosystem?",
-            "min_words": 10,
-        },
-        {
-            "heading": "How do we identify the right time to do this? (Is it now?)",
-            "min_words": 10,
-        },
-        {
-            "heading": "Who is doing / will do the work?",
-        },
-        {
-            "heading": "Endorsements",
-        },
-    ]
-}
+from validator.repo import REPO_OWNER, REPO_NAME
+from validator.headings import REQUIRED_HEADINGS, FREEFORM_HEADINGS
 
 
 def _validate_segment(*, heading: str, level: int, content: str) -> None | str:
     """Validate that the segment is permitted and has the expected number of words."""
 
-    if heading == "Other Information":
+    if heading in FREEFORM_HEADINGS:
         return None
 
     # Find segment config
