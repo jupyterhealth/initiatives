@@ -1,16 +1,17 @@
 """Validate a GitHub issue aligns with our standards."""
 
-from argparse import ArgumentParser
 import os
-import nltk
+from argparse import ArgumentParser
 from typing import Iterable
-from mistletoe.markdown_renderer import MarkdownRenderer
-from mistletoe.block_token import Heading, Document
-from mistletoe.token import Token
-from github import Github, Auth
 
-from validator.repo import REPO_OWNER, REPO_NAME
-from validator.headings import REQUIRED_HEADINGS, FREEFORM_HEADINGS
+import nltk
+from github import Auth, Github
+from mistletoe.block_token import Document, Heading
+from mistletoe.markdown_renderer import MarkdownRenderer
+from mistletoe.token import Token
+
+from validator.headings import FREEFORM_HEADINGS, REQUIRED_HEADINGS
+from validator.repo import REPO_NAME, REPO_OWNER
 
 
 def _validate_segment(*, heading: str, level: int, content: str) -> None | str:

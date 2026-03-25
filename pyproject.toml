@@ -28,3 +28,8 @@ module = [
     "nltk",
 ]
 ignore_missing_imports = true
+
+[tool.ruff.lint]
+extend-select = [
+  "I",  # isort
+]
