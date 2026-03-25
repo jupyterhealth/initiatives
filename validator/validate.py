@@ -62,7 +62,7 @@ def _validate_segment(*, heading: str, level: int, content: str) -> None | str:
     """Validate that the segment is permitted and has the expected number of words."""
 
     if heading == "Other Information":
-        return
+        return None
 
     # Find segment config
     heading_config = None
@@ -93,6 +93,8 @@ def _validate_segment(*, heading: str, level: int, content: str) -> None | str:
                 f"❌ Heading '{heading}' requires at most {max_words} words, found {word_count} words"
             )
             return "error:too-much-info"
+
+    return None
 
 
 def _render_tokens_md(*, renderer: MarkdownRenderer, tokens: Iterable[Token]) -> str:
@@ -164,6 +166,8 @@ def _validate(markdown: str) -> None | str:
             resp = _validate_segment(heading=header, level=1, content=md_content)
             if resp is not True:
                 return resp
+
+    return None
 
 
 def _validate_issue(*, github: Github, issue_id: int) -> None:
