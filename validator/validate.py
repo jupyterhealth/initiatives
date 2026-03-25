@@ -164,7 +164,7 @@ def _validate(markdown: str) -> None | str:
         for header, content in segments.items():
             md_content = _render_tokens_md(renderer=renderer, tokens=content).strip()
             resp = _validate_segment(heading=header, level=1, content=md_content)
-            if resp is not True:
+            if resp is not None:
                 return resp
 
     return None
