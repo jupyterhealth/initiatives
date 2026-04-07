@@ -8,17 +8,14 @@ body:
   attributes:
     label: Problem statement
     description: |
-      A specific problem being faced by one or more specific personas we care
-      about.
+      A specific problem being faced by one or more specific personas we care about.
 
 - type: textarea
   id: who-is-impacted
   attributes:
     label: Who is impacted by this problem?
     description: |
-      Which personas
-      (such as student, researcher, instructor, end user, analyst, PI, etc)
-      are impacted by this problem?
+      Which personas (such as researcher, clinician, IT services provider, patient, device manufacturer, data provider, etc) are impacted by this problem?
       Ideally, list a specific person who can stand in for this persona and validate our decisions.
 
 - type: textarea
@@ -38,9 +35,16 @@ body:
 - type: textarea
   id: fits
   attributes:
-    label: How will this fit in the ecosystem?
+    label: How will this fit in the broader open source ecosystem?
     description: |
-      How will this proposed solution fit within the upstream ecosystem as well as practices of our current communities?
+      How will this proposed solution benefit other Jupyter, OpenMHealth, TCP, or other open source projects?
+
+- type: textarea
+  id: existing-solutions
+  attributes:
+    label: Are there existing solutions across the open source and health ecosystems?
+    description: |
+      If there are similar solutions please document how they can be re-used or adapted, or why they do not meet this problem statement's needs.
 
 - type: textarea
   id: when
