@@ -41,6 +41,13 @@ body:
 - type: textarea
   id: who-implements
   attributes:
-    label: Team and endoresements
+    label: Team members who will do the work
     description: |
-      List the people involved in this work and others who support or are interested in it.
+      List the people who will implement this work and/or the skills required to identify the right contributor.
+      
+- type: textarea
+  id: endorsements
+  attributes:
+    label: Endorsements
+    description: |
+      List endorsements from community members / organizations who may benefit from this initiative.
